@@ -37,12 +37,12 @@ struct ExerciseTimerView: View {
                 Text(timeString)
                     .font(.system(size: 64, weight: .semibold, design: .rounded))
                     .monospacedDigit()
-                    .foregroundStyle(hasFinished ? .green : .primary)
+                    .foregroundStyle(hasFinished ? Color("CompletedColor") : Color.primary)
 
                 if hasFinished {
                     Text("Tiden är slut! 🎉")
                         .font(.headline)
-                        .foregroundStyle(.green)
+                        .foregroundStyle(Color("CompletedColor"))
                 }
 
                 HStack(spacing: 16) {
@@ -68,7 +68,7 @@ struct ExerciseTimerView: View {
                     )
                 }
                 .buttonStyle(.bordered)
-                .tint(exercise.isCompleted ? .green : .accentColor)
+                .tint(exercise.isCompleted ? Color("CompletedColor") : Color.accentColor)
             }
             .padding()
             .navigationTitle("Timer")

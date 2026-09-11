@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C08C8CD12C15CE035F05C57 /* WeekDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CA5FD6261656FD8FE51D12 /* WeekDetailView.swift */; };
 		1B051930B7DB59229CCA795A /* ProgramListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C869A0B0E306EA78E8ED05 /* ProgramListView.swift */; };
+		308A8E4B494EF4F80132C885 /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBDCB687C5339066DBAE1A4 /* MetronomeEngine.swift */; };
 		3578AD388A39C52B3FF35055 /* ExerciseTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA190E56C9ADB74872D138F9 /* ExerciseTimerView.swift */; };
 		4D9E5ABC86714C0EF32FC063 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07006B7107979A13F043CE7E /* NotificationManager.swift */; };
 		52AC8C5DAA488E797A7CB86C /* ProgramSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF9D32BC4ABCCA6D91E8EDA /* ProgramSession.swift */; };
@@ -21,6 +22,7 @@
 		7A0BFF6AF51B90C64DD45B4C /* AddSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDE1E76CB66147F4EE78DB0 /* AddSessionView.swift */; };
 		7DB428931E1E5E8D916E2780 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43FCC7FCD3CE6B444DF57D4 /* SessionDetailView.swift */; };
 		7E408E62D3954F37957137C0 /* ProgramDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021B778CC5C5DCF8D93FA9D /* ProgramDetailView.swift */; };
+		986F6FFE1AEE8A5BFC3B1B05 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53483D101CD0456453B1CE74 /* MetronomeView.swift */; };
 		ACC68310A3AC859EF258502D /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B530F3C676F72EE2EBBCA5F /* AddExerciseView.swift */; };
 		C0F5510E053551098E334943 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9577B66B6BC7FD3D2D0617D /* ContentView.swift */; };
 		EEB87CAB35243AC581033D4E /* QuickLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77512A2B07770FEA67ABFE5 /* QuickLogView.swift */; };
@@ -38,6 +40,7 @@
 		2B530F3C676F72EE2EBBCA5F /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		4C894D2F34BF3C06E79D830D /* ProgramExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramExercise.swift; sourceTree = "<group>"; };
 		5021B778CC5C5DCF8D93FA9D /* ProgramDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramDetailView.swift; sourceTree = "<group>"; };
+		53483D101CD0456453B1CE74 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		5E37683234FE9941A56A8D3F /* ProgramWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramWeek.swift; sourceTree = "<group>"; };
 		67CA5FD6261656FD8FE51D12 /* WeekDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDetailView.swift; sourceTree = "<group>"; };
 		78009195C996B692F9F5B092 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
@@ -52,6 +55,7 @@
 		D43FCC7FCD3CE6B444DF57D4 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		E9474A7FC110E335A7E522BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FA122F861D1145A12E5502E7 /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
+		FCBDCB687C5339066DBAE1A4 /* MetronomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -64,6 +68,7 @@
 				7DDE1E76CB66147F4EE78DB0 /* AddSessionView.swift */,
 				B9577B66B6BC7FD3D2D0617D /* ContentView.swift */,
 				CA190E56C9ADB74872D138F9 /* ExerciseTimerView.swift */,
+				53483D101CD0456453B1CE74 /* MetronomeView.swift */,
 				5021B778CC5C5DCF8D93FA9D /* ProgramDetailView.swift */,
 				04C869A0B0E306EA78E8ED05 /* ProgramListView.swift */,
 				C77512A2B07770FEA67ABFE5 /* QuickLogView.swift */,
@@ -117,6 +122,7 @@
 		F7C55A08F5BB5843289FC085 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FCBDCB687C5339066DBAE1A4 /* MetronomeEngine.swift */,
 				07006B7107979A13F043CE7E /* NotificationManager.swift */,
 				FA122F861D1145A12E5502E7 /* SeedData.swift */,
 			);
@@ -200,6 +206,8 @@
 				7A0BFF6AF51B90C64DD45B4C /* AddSessionView.swift in Sources */,
 				C0F5510E053551098E334943 /* ContentView.swift in Sources */,
 				3578AD388A39C52B3FF35055 /* ExerciseTimerView.swift in Sources */,
+				308A8E4B494EF4F80132C885 /* MetronomeEngine.swift in Sources */,
+				986F6FFE1AEE8A5BFC3B1B05 /* MetronomeView.swift in Sources */,
 				F98CDD795E4A662C9D0CE9E7 /* MusicPracticeApp.swift in Sources */,
 				4D9E5ABC86714C0EF32FC063 /* NotificationManager.swift in Sources */,
 				FC625BC9C6F8E2FBD22107BA /* PracticeSession.swift in Sources */,

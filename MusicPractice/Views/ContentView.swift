@@ -7,6 +7,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Program", systemImage: "list.bullet.rectangle.portrait")
                 }
+            MetronomeView()
+                .tabItem {
+                    Label("Metronom", systemImage: "metronome.fill")
+                }
             QuickLogView()
                 .tabItem {
                     Label("Snabblogg", systemImage: "note.text")

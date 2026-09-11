@@ -4,9 +4,11 @@ import SwiftData
 struct ExerciseTimerView: View {
     @Bindable var exercise: ProgramExercise
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var metronome: MetronomeEngine
 
     @State private var remainingSeconds: Int
+    @State private var endDate: Date?
     @State private var isRunning = false
     @State private var hasFinished = false
 
@@ -85,11 +87,11 @@ struct ExerciseTimerView: View {
                 }
             }
             .onReceive(tick) { _ in
-                guard isRunning, remainingSeconds > 0 else { return }
-                remainingSeconds -= 1
-                if remainingSeconds == 0 {
-                    isRunning = false
-                    hasFinished = true
+                refreshRemainingTime()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    refreshRemainingTime()
                 }
             }
             .onAppear {
@@ -156,10 +158,24 @@ struct ExerciseTimerView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 
+    /// Recomputes `remainingSeconds` from the absolute `endDate` rather than counting ticks,
+    /// so the countdown is always correct even after the app spent time backgrounded/suspended.
+    private func refreshRemainingTime() {
+        guard isRunning, let endDate else { return }
+        let remaining = max(0, Int(endDate.timeIntervalSinceNow.rounded()))
+        remainingSeconds = remaining
+        if remaining == 0 {
+            isRunning = false
+            hasFinished = true
+            self.endDate = nil
+        }
+    }
+
     private func start() {
         guard remainingSeconds > 0 else { return }
         isRunning = true
         hasFinished = false
+        endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
         NotificationManager.shared.scheduleTimerAlarm(
             id: notificationID,
             title: "Övningen är klar",
@@ -169,6 +185,10 @@ struct ExerciseTimerView: View {
     }
 
     private func pause() {
+        if let endDate {
+            remainingSeconds = max(0, Int(endDate.timeIntervalSinceNow.rounded()))
+        }
+        endDate = nil
         isRunning = false
         NotificationManager.shared.cancelTimerAlarm(id: notificationID)
     }

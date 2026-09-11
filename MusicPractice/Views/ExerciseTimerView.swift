@@ -4,6 +4,7 @@ import SwiftData
 struct ExerciseTimerView: View {
     @Bindable var exercise: ProgramExercise
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var metronome: MetronomeEngine
 
     @State private var remainingSeconds: Int
     @State private var isRunning = false
@@ -69,6 +70,8 @@ struct ExerciseTimerView: View {
                 }
                 .buttonStyle(.bordered)
                 .tint(exercise.isCompleted ? Color("CompletedColor") : Color.accentColor)
+
+                metronomeControl
             }
             .padding()
             .navigationTitle("Timer")
@@ -93,6 +96,58 @@ struct ExerciseTimerView: View {
                 NotificationManager.shared.requestAuthorizationIfNeeded()
             }
         }
+    }
+
+    private var metronomeControl: some View {
+        VStack(spacing: 12) {
+            Text("Metronom")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+
+            BeatDotsView(
+                beatsPerBar: metronome.timeSignature.beatsPerBar,
+                currentBeat: metronome.currentBeat,
+                isPlaying: metronome.isPlaying
+            )
+            .frame(height: 20)
+
+            HStack(spacing: 20) {
+                Button {
+                    metronome.bpm = max(40, metronome.bpm - 1)
+                } label: {
+                    Image(systemName: "minus")
+                        .frame(width: 32, height: 32)
+                }
+                .buttonStyle(.bordered)
+                .clipShape(Circle())
+
+                Text("\(Int(metronome.bpm)) BPM")
+                    .font(.headline)
+                    .monospacedDigit()
+                    .frame(minWidth: 92)
+
+                Button {
+                    metronome.bpm = min(208, metronome.bpm + 1)
+                } label: {
+                    Image(systemName: "plus")
+                        .frame(width: 32, height: 32)
+                }
+                .buttonStyle(.bordered)
+                .clipShape(Circle())
+
+                Button {
+                    metronome.toggle()
+                } label: {
+                    Image(systemName: metronome.isPlaying ? "stop.fill" : "play.fill")
+                        .frame(width: 32, height: 32)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(metronome.isPlaying ? Color("CompletedColor") : Color.accentColor)
+                .clipShape(Circle())
+            }
+        }
+        .padding()
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var timeString: String {

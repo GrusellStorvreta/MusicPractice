@@ -4,6 +4,7 @@ import SwiftData
 @main
 struct MusicPracticeApp: App {
     private let container: ModelContainer
+    @StateObject private var metronome = MetronomeEngine()
 
     init() {
         let schema = Schema([
@@ -25,6 +26,7 @@ struct MusicPracticeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(metronome)
         }
         .modelContainer(container)
     }

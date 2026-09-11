@@ -1,0 +1,39 @@
+name: MusicPractice
+options:
+  bundleIdPrefix: com.grusellstorvreta
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+targets:
+  MusicPractice:
+    type: application
+    platform: iOS
+    sources:
+      - path: MusicPractice
+    info:
+      path: MusicPractice/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.grusellstorvreta.MusicPractice
+        PRODUCT_NAME: MusicPractice
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+schemes:
+  MusicPractice:
+    build:
+      targets:
+        MusicPractice: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    archive:
+      config: Release

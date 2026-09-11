@@ -16,5 +16,7 @@ xcodegen generate
 open MusicPractice.xcodeproj
 ```
 
-`MusicPractice.xcodeproj` är genererad och incheckad, men om du ändrar `project.yml`
-(t.ex. lägger till mål eller ändrar inställningar), kör `xcodegen generate` igen.
+`MusicPractice.xcodeproj` är genererad och **inte** incheckad (den ligger i `.gitignore`),
+eftersom Xcode skriver om den lokalt varje gång du öppnar projektet (t.ex. ditt
+signerings-Team-ID). Kör `xcodegen generate` efter varje `git pull` som rör `project.yml`
+eller lägger till/tar bort filer, samt en gång innan första `open`.

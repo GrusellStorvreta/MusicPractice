@@ -61,9 +61,9 @@ enum SeedData {
                 ExerciseSeed(name: "Drowsy Maggie", detail: "playalong", minutes: 10),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Rocky Road", detail: "", minutes: 10),
-                ExerciseSeed(name: "Little Beggarman", detail: "", minutes: 10),
-                ExerciseSeed(name: "Carlow", detail: "", minutes: 10),
+                ExerciseSeed(name: "Rocky Road", detail: "spela igenom långsamt", minutes: 10),
+                ExerciseSeed(name: "Little Beggarman", detail: "sång + komp", minutes: 10),
+                ExerciseSeed(name: "Carlow", detail: "spela melodin utan noter", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 2, sessions: [
@@ -72,8 +72,9 @@ enum SeedData {
                 ExerciseSeed(name: "Blackthorn Stick", detail: "playalong", minutes: 15),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Rocky Road", detail: "", minutes: 15),
-                ExerciseSeed(name: "Carlow", detail: "", minutes: 15),
+                ExerciseSeed(name: "Rocky Road", detail: "fokusera på svåra övergångar", minutes: 10),
+                ExerciseSeed(name: "Little Beggarman", detail: "håll jämnt tempo genom hela låten", minutes: 10),
+                ExerciseSeed(name: "Carlow", detail: "spela endast ackord/komp", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 3, sessions: [
@@ -83,8 +84,9 @@ enum SeedData {
                 ExerciseSeed(name: "Drowsy Maggie", detail: "playalong", minutes: 10),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Little Beggarman", detail: "sång + komp", minutes: 15),
-                ExerciseSeed(name: "Rocky Road", detail: "", minutes: 15),
+                ExerciseSeed(name: "Rocky Road", detail: "sjung med inspelning", minutes: 10),
+                ExerciseSeed(name: "Little Beggarman", detail: "sjung utan att titta på texten", minutes: 10),
+                ExerciseSeed(name: "Carlow", detail: "växla melodi/komp mellan verserna", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 4, sessions: [
@@ -94,9 +96,9 @@ enum SeedData {
                 ExerciseSeed(name: "Blackthorn Stick", detail: "playalong", minutes: 10),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Carlow", detail: "melodi", minutes: 10),
-                ExerciseSeed(name: "Carlow", detail: "komp", minutes: 10),
-                ExerciseSeed(name: "Rocky Road", detail: "", minutes: 10),
+                ExerciseSeed(name: "Rocky Road", detail: "spela och sjung hela låten utan stopp", minutes: 10),
+                ExerciseSeed(name: "Little Beggarman", detail: "testa olika komprytmer", minutes: 10),
+                ExerciseSeed(name: "Carlow", detail: "spela med Youtube-version", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 5, sessions: [
@@ -105,7 +107,8 @@ enum SeedData {
                 ExerciseSeed(name: "Svår passage", detail: "", minutes: 10),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Little Beggarman → Carlow → Rocky Road", detail: "som set", minutes: 30),
+                ExerciseSeed(name: "Little Beggarman → Carlow → Rocky Road", detail: "som set", minutes: 20),
+                ExerciseSeed(name: "Svagaste övergången", detail: "identifiera och repetera", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 6, sessions: [
@@ -113,7 +116,9 @@ enum SeedData {
                 ExerciseSeed(name: "Drowsy Maggie + Blackthorn Stick", detail: "med Youtube", minutes: 30),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Rocky Road + Little Beggarman", detail: "med Youtube", minutes: 30),
+                ExerciseSeed(name: "Rocky Road", detail: "bara sång + komp", minutes: 10),
+                ExerciseSeed(name: "Little Beggarman", detail: "spela till inspelning", minutes: 10),
+                ExerciseSeed(name: "Carlow", detail: "spela till inspelning", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 7, sessions: [
@@ -121,7 +126,8 @@ enum SeedData {
                 ExerciseSeed(name: "Drowsy Maggie → Blackthorn Stick", detail: "3 gånger utan stopp", minutes: 30),
             ]),
             SessionSeed(name: "Pub-pass B", exercises: [
-                ExerciseSeed(name: "Little Beggarman → Carlow → Rocky Road", detail: "utan stopp", minutes: 30),
+                ExerciseSeed(name: "Hela sångsetet", detail: "utan stopp", minutes: 20),
+                ExerciseSeed(name: "Svagaste låten", detail: "spela om den", minutes: 10),
             ]),
         ]),
         WeekSeed(week: 8, sessions: [
@@ -129,7 +135,8 @@ enum SeedData {
                 ExerciseSeed(name: "Drowsy Maggie + Blackthorn Stick", detail: "spela in", minutes: 30),
             ]),
             SessionSeed(name: "Pass B", exercises: [
-                ExerciseSeed(name: "Hela repertoaren", detail: "spela in", minutes: 30),
+                ExerciseSeed(name: "Little Beggarman, Carlow, Rocky Road", detail: "spela in", minutes: 20),
+                ExerciseSeed(name: "Lyssna igenom", detail: "anteckna 3 saker att förbättra", minutes: 10),
             ]),
         ]),
     ]

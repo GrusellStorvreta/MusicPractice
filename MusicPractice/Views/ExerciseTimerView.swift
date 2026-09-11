@@ -4,24 +4,12 @@ import SwiftData
 struct ExerciseTimerView: View {
     @Bindable var exercise: ProgramExercise
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var metronome: MetronomeEngine
+    @EnvironmentObject private var exerciseTimer: ExerciseTimerEngine
 
-    @State private var remainingSeconds: Int
-    @State private var endDate: Date?
-    @State private var isRunning = false
-    @State private var hasFinished = false
-
-    private let tick = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
-    init(exercise: ProgramExercise) {
-        self.exercise = exercise
-        _remainingSeconds = State(initialValue: exercise.durationMinutes * 60)
-    }
-
-    private var notificationID: String {
-        "exercise-timer-\(exercise.id.uuidString)"
-    }
+    private var remainingSeconds: Int { exerciseTimer.displaySeconds(for: exercise) }
+    private var isRunning: Bool { exerciseTimer.isRunning(for: exercise) }
+    private var hasFinished: Bool { exerciseTimer.hasFinished(for: exercise) }
 
     var body: some View {
         NavigationStack {
@@ -46,17 +34,21 @@ struct ExerciseTimerView: View {
                     Text("Tiden är slut! 🎉")
                         .font(.headline)
                         .foregroundStyle(Color("CompletedColor"))
+                } else if isRunning {
+                    Label("Fortsätter i bakgrunden om du byter app", systemImage: "checkmark.shield")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
 
                 HStack(spacing: 16) {
                     Button(isRunning ? "Pausa" : "Starta") {
-                        isRunning ? pause() : start()
+                        isRunning ? exerciseTimer.pause(exercise: exercise) : exerciseTimer.start(exercise: exercise)
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(remainingSeconds == 0)
 
                     Button("Nollställ") {
-                        reset()
+                        exerciseTimer.reset(exercise: exercise)
                     }
                     .buttonStyle(.bordered)
                 }
@@ -81,17 +73,8 @@ struct ExerciseTimerView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Stäng") {
-                        pause()
                         dismiss()
                     }
-                }
-            }
-            .onReceive(tick) { _ in
-                refreshRemainingTime()
-            }
-            .onChange(of: scenePhase) { _, newPhase in
-                if newPhase == .active {
-                    refreshRemainingTime()
                 }
             }
             .onAppear {
@@ -156,46 +139,5 @@ struct ExerciseTimerView: View {
         let minutes = remainingSeconds / 60
         let seconds = remainingSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
-    }
-
-    /// Recomputes `remainingSeconds` from the absolute `endDate` rather than counting ticks,
-    /// so the countdown is always correct even after the app spent time backgrounded/suspended.
-    private func refreshRemainingTime() {
-        guard isRunning, let endDate else { return }
-        let remaining = max(0, Int(endDate.timeIntervalSinceNow.rounded()))
-        remainingSeconds = remaining
-        if remaining == 0 {
-            isRunning = false
-            hasFinished = true
-            self.endDate = nil
-        }
-    }
-
-    private func start() {
-        guard remainingSeconds > 0 else { return }
-        isRunning = true
-        hasFinished = false
-        endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
-        NotificationManager.shared.scheduleTimerAlarm(
-            id: notificationID,
-            title: "Övningen är klar",
-            body: exercise.detail.isEmpty ? exercise.name : "\(exercise.name) – \(exercise.detail)",
-            secondsFromNow: TimeInterval(remainingSeconds)
-        )
-    }
-
-    private func pause() {
-        if let endDate {
-            remainingSeconds = max(0, Int(endDate.timeIntervalSinceNow.rounded()))
-        }
-        endDate = nil
-        isRunning = false
-        NotificationManager.shared.cancelTimerAlarm(id: notificationID)
-    }
-
-    private func reset() {
-        pause()
-        remainingSeconds = exercise.durationMinutes * 60
-        hasFinished = false
     }
 }

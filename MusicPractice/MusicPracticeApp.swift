@@ -5,6 +5,7 @@ import SwiftData
 struct MusicPracticeApp: App {
     private let container: ModelContainer
     @StateObject private var metronome = MetronomeEngine()
+    @StateObject private var exerciseTimer = ExerciseTimerEngine()
 
     init() {
         let schema = Schema([
@@ -27,6 +28,7 @@ struct MusicPracticeApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(metronome)
+                .environmentObject(exerciseTimer)
         }
         .modelContainer(container)
     }

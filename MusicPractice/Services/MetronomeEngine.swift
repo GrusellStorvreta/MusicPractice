@@ -1,5 +1,4 @@
 import AVFoundation
-import UIKit
 
 @MainActor
 final class MetronomeEngine: ObservableObject {
@@ -39,20 +38,10 @@ final class MetronomeEngine: ObservableObject {
 
     init() {
         setupAudio()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleWillResignActive),
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
     }
 
     deinit {
         timer?.cancel()
-    }
-
-    @objc private func handleWillResignActive() {
-        stop()
     }
 
     private func setupAudio() {

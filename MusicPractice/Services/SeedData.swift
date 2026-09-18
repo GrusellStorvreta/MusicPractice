@@ -29,6 +29,13 @@ enum SeedData {
         )
         context.insert(program)
 
+        var songsByName: [String: Song] = [:]
+        for name in ["Drowsy Maggie", "Blackthorn Stick", "Rocky Road", "Little Beggarman", "Carlow"] {
+            let song = Song(name: name, genre: "irish trad")
+            context.insert(song)
+            songsByName[name] = song
+        }
+
         for weekSeed in weeks {
             let week = ProgramWeek(weekNumber: weekSeed.week)
             week.program = program
@@ -47,6 +54,7 @@ enum SeedData {
                         orderIndex: exerciseIndex
                     )
                     exercise.session = session
+                    exercise.song = songsByName[exerciseSeed.name]
                     session.exercises.append(exercise)
                 }
             }

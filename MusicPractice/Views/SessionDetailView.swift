@@ -59,7 +59,7 @@ private struct ExerciseRow: View {
             .buttonStyle(.plain)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(exercise.name)
+                Text(exercise.displayName)
                     .font(.body)
                     .strikethrough(exercise.isCompleted)
                 if !exercise.detail.isEmpty {

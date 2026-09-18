@@ -7,6 +7,7 @@ struct AddSessionView: View {
 
     @State private var date = Date.now
     @State private var pieceName = ""
+    @State private var selectedSong: Song?
     @State private var durationMinutes = 30
     @State private var notes = ""
 
@@ -15,7 +16,13 @@ struct AddSessionView: View {
             Form {
                 Section("Vad övade du på?") {
                     TextField("Låt/stycke", text: $pieceName)
+                        .onChange(of: pieceName) { _, newValue in
+                            if let selectedSong, selectedSong.name != newValue {
+                                self.selectedSong = nil
+                            }
+                        }
                 }
+                SongSuggestionsSection(text: $pieceName, selectedSong: $selectedSong)
                 Section("Detaljer") {
                     DatePicker("Datum", selection: $date, displayedComponents: .date)
                     Stepper("Längd: \(durationMinutes) min", value: $durationMinutes, in: 5...240, step: 5)
@@ -45,6 +52,7 @@ struct AddSessionView: View {
             durationMinutes: durationMinutes,
             notes: notes.trimmingCharacters(in: .whitespaces)
         )
+        session.song = selectedSong
         modelContext.insert(session)
         dismiss()
     }

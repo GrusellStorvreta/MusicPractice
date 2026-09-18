@@ -51,7 +51,7 @@ final class ExerciseTimerEngine: ObservableObject {
     func start(exercise: ProgramExercise) {
         if !isActive(exercise) {
             activeExerciseID = exercise.id
-            exerciseName = exercise.name
+            exerciseName = exercise.displayName
             exerciseDetail = exercise.detail
             remainingSeconds = exercise.durationMinutes * 60
             hasFinished = false

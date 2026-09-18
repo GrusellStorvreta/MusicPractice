@@ -7,6 +7,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Program", systemImage: "list.bullet.rectangle.portrait")
                 }
+            SongListView()
+                .tabItem {
+                    Label("Låtar", systemImage: "music.quarternote.3")
+                }
             MetronomeView()
                 .tabItem {
                     Label("Metronom", systemImage: "metronome.fill")
@@ -22,7 +26,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(
-            for: [PracticeSession.self, Program.self, ProgramWeek.self, ProgramSession.self, ProgramExercise.self],
+            for: [PracticeSession.self, Program.self, ProgramWeek.self, ProgramSession.self, ProgramExercise.self, Song.self],
             inMemory: true
         )
 }

@@ -14,6 +14,7 @@ struct MusicPracticeApp: App {
             ProgramWeek.self,
             ProgramSession.self,
             ProgramExercise.self,
+            Song.self,
         ])
         let configuration = ModelConfiguration(schema: schema)
         do {

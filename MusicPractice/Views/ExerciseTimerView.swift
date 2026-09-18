@@ -15,7 +15,7 @@ struct ExerciseTimerView: View {
         NavigationStack {
             VStack(spacing: 32) {
                 VStack(spacing: 4) {
-                    Text(exercise.name)
+                    Text(exercise.displayName)
                         .font(.title2.bold())
                         .multilineTextAlignment(.center)
                     if !exercise.detail.isEmpty {

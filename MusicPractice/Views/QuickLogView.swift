@@ -53,7 +53,7 @@ private struct PracticeLogRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(session.pieceName)
+            Text(session.displayName)
                 .font(.headline)
             HStack {
                 Text(session.date, style: .date)

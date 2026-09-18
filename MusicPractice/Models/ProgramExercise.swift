@@ -11,6 +11,7 @@ final class ProgramExercise {
     var isCompleted: Bool
     var completedAt: Date?
     var session: ProgramSession?
+    var song: Song?
 
     init(name: String, detail: String = "", durationMinutes: Int, orderIndex: Int = 0) {
         self.id = UUID()
@@ -20,5 +21,10 @@ final class ProgramExercise {
         self.orderIndex = orderIndex
         self.isCompleted = false
         self.completedAt = nil
+    }
+
+    /// The linked song's name if one is set, otherwise the free-text name typed for this exercise.
+    var displayName: String {
+        song?.name ?? name
     }
 }

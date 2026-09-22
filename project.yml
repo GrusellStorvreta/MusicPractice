@@ -20,6 +20,7 @@ targets:
         NSSupportsLiveActivities: true
         UIBackgroundModes:
           - audio
+        NSMicrophoneUsageDescription: MusicPractice använder mikrofonen för att lyssna på tonen du spelar i notläsningsövningen.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.grusellstorvreta.MusicPractice

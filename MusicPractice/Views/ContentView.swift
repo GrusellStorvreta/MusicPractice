@@ -11,6 +11,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Låtar", systemImage: "music.quarternote.3")
                 }
+            NoteReadingView()
+                .tabItem {
+                    Label("Notläsning", systemImage: "tuningfork")
+                }
             MetronomeView()
                 .tabItem {
                     Label("Metronom", systemImage: "metronome.fill")

@@ -3,12 +3,19 @@ import AVFoundation
 @MainActor
 final class PitchDetector: ObservableObject {
     @Published private(set) var isListening = false
+    /// Raw, immediate detection — used for correctness matching, so a match still registers right away.
     @Published private(set) var detectedFrequency: Double?
+    /// Same as `detectedFrequency`, but holds the last reading for at least `minimumDisplayDuration`
+    /// once it goes silent, so the UI label doesn't flicker in and out between plucks/decay. Use
+    /// this for anything shown to the user.
+    @Published private(set) var displayFrequency: Double?
     @Published var permissionDenied = false
 
     private let engine = AVAudioEngine()
     private let minFrequency: Double = 70    // below guitar low E (~82 Hz), with margin
     private let maxFrequency: Double = 1200  // comfortably above guitar's practical fretted range
+    private let minimumDisplayDuration: TimeInterval = 1.0
+    private var clearDisplayWorkItem: DispatchWorkItem?
 
     func requestPermissionAndStart() {
         AVAudioApplication.requestRecordPermission { [weak self] granted in
@@ -54,6 +61,7 @@ final class PitchDetector: ObservableObject {
                     )
                     await MainActor.run { [weak self] in
                         self?.detectedFrequency = frequency
+                        self?.updateDisplayFrequency(frequency)
                     }
                 }
             }
@@ -73,6 +81,26 @@ final class PitchDetector: ObservableObject {
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         isListening = false
         detectedFrequency = nil
+        clearDisplayWorkItem?.cancel()
+        clearDisplayWorkItem = nil
+        displayFrequency = nil
+    }
+
+    /// Updates `displayFrequency` immediately for a new reading, but delays clearing it to nil
+    /// so a briefly-dropped detection doesn't make the UI flicker.
+    private func updateDisplayFrequency(_ frequency: Double?) {
+        if let frequency {
+            displayFrequency = frequency
+            clearDisplayWorkItem?.cancel()
+            clearDisplayWorkItem = nil
+        } else if displayFrequency != nil, clearDisplayWorkItem == nil {
+            let workItem = DispatchWorkItem { [weak self] in
+                self?.displayFrequency = nil
+                self?.clearDisplayWorkItem = nil
+            }
+            clearDisplayWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + minimumDisplayDuration, execute: workItem)
+        }
     }
 
     /// Normalized autocorrelation pitch detector: finds the lag (within the expected frequency

@@ -69,7 +69,7 @@ struct NoteReadingView: View {
 
     @ViewBuilder
     private var statusText: some View {
-        if let frequency = pitchDetector.detectedFrequency {
+        if let frequency = pitchDetector.displayFrequency {
             Text("Du spelar: \(PitchDetector.noteLabel(forFrequency: frequency))")
                 .font(.subheadline)
                 .foregroundStyle(isMatch(frequency) ? Color("CompletedColor") : .secondary)

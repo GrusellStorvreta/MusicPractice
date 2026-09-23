@@ -22,7 +22,16 @@ final class MetronomeEngine: ObservableObject {
         }
     }
 
-    @Published var bpm: Double = 90
+    static let bpmRange: ClosedRange<Double> = 40...208
+
+    @Published var bpm: Double = 90 {
+        didSet {
+            let clamped = bpm.clamped(to: Self.bpmRange)
+            if clamped != bpm {
+                bpm = clamped
+            }
+        }
+    }
     @Published var timeSignature: TimeSignature = .fourFour
     @Published private(set) var isPlaying = false
     @Published private(set) var currentBeat = 0

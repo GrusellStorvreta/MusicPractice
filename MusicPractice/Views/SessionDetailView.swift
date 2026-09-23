@@ -53,7 +53,7 @@ private struct ExerciseRow: View {
                 exercise.completedAt = exercise.isCompleted ? .now : nil
             } label: {
                 Image(systemName: exercise.isCompleted ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(exercise.isCompleted ? Color("CompletedColor") : Color.secondary)
+                    .foregroundStyle(exercise.isCompleted ? Color(.completed) : Color.secondary)
                     .imageScale(.large)
             }
             .buttonStyle(.plain)

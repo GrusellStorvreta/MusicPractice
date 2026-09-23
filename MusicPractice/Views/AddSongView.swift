@@ -10,37 +10,25 @@ struct AddSongView: View {
     @State private var notes = ""
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Namn") {
-                    TextField("T.ex. Drowsy Maggie", text: $name)
-                }
-                Section("Genre") {
-                    TextField("T.ex. reel, jig, vals (valfritt)", text: $genre)
-                }
-                Section("Anteckningar") {
-                    TextField("Valfritt", text: $notes, axis: .vertical)
-                        .lineLimit(3...6)
-                }
+        FormSheet(title: "Ny låt", isSaveDisabled: name.trimmed.isEmpty, onSave: save) {
+            Section("Namn") {
+                TextField("T.ex. Drowsy Maggie", text: $name)
             }
-            .navigationTitle("Ny låt")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Avbryt") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Spara") { save() }
-                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
+            Section("Genre") {
+                TextField("T.ex. reel, jig, vals (valfritt)", text: $genre)
+            }
+            Section("Anteckningar") {
+                TextField("Valfritt", text: $notes, axis: .vertical)
+                    .lineLimit(3...6)
             }
         }
     }
 
     private func save() {
         let song = Song(
-            name: name.trimmingCharacters(in: .whitespaces),
-            genre: genre.trimmingCharacters(in: .whitespaces),
-            notes: notes.trimmingCharacters(in: .whitespaces)
+            name: name.trimmed,
+            genre: genre.trimmed,
+            notes: notes.trimmed
         )
         modelContext.insert(song)
         dismiss()

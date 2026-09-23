@@ -86,11 +86,7 @@ private struct CountdownText: View {
         } else if state.isRunning, state.endDate > .now {
             Text(timerInterval: Date.now...state.endDate, countsDown: true, showsHours: false)
         } else {
-            Text(staticTime(state.pausedRemainingSeconds))
+            Text(TimeFormatting.minutesAndSeconds(state.pausedRemainingSeconds))
         }
-    }
-
-    private func staticTime(_ seconds: Int) -> String {
-        String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
 }

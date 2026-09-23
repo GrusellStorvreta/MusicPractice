@@ -27,6 +27,6 @@ struct BeatDotsView: View {
 
     private func dotColor(for index: Int) -> Color {
         guard isActive(index) else { return Color.secondary.opacity(0.25) }
-        return index == 0 ? Color("CompletedColor") : Color.accentColor
+        return index == 0 ? Color(.completed) : Color.accentColor
     }
 }

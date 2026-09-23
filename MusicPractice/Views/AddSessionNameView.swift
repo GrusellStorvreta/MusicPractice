@@ -11,23 +11,13 @@ struct AddSessionNameView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Form {
-                TextField("Namn på passet, t.ex. Pass A", text: $name)
-            }
-            .navigationTitle("Nytt pass")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Avbryt") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Spara") {
-                        onSave(name.trimmingCharacters(in: .whitespaces))
-                        dismiss()
-                    }
-                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
-            }
+        FormSheet(title: "Nytt pass", isSaveDisabled: name.trimmed.isEmpty, onSave: save) {
+            TextField("Namn på passet, t.ex. Pass A", text: $name)
         }
+    }
+
+    private func save() {
+        onSave(name.trimmed)
+        dismiss()
     }
 }

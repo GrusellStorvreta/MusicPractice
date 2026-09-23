@@ -19,7 +19,7 @@ struct NoteReadingView: View {
                 if justCorrect {
                     Text("Rätt! 🎉")
                         .font(.title3.bold())
-                        .foregroundStyle(Color("CompletedColor"))
+                        .foregroundStyle(Color(.completed))
                 }
 
                 HStack(spacing: 16) {
@@ -72,7 +72,7 @@ struct NoteReadingView: View {
         if let frequency = pitchDetector.displayFrequency {
             Text("Du spelar: \(PitchDetector.noteLabel(forFrequency: frequency))")
                 .font(.subheadline)
-                .foregroundStyle(isMatch(frequency) ? Color("CompletedColor") : .secondary)
+                .foregroundStyle(isMatch(frequency) ? Color(.completed) : .secondary)
         } else {
             Text(pitchDetector.isListening ? "Lyssnar …" : " ")
                 .font(.subheadline)

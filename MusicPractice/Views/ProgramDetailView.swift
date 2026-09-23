@@ -14,7 +14,7 @@ struct ProgramDetailView: View {
                             .font(.headline)
                         if week.isCompleted {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(Color("CompletedColor"))
+                                .foregroundStyle(Color(.completed))
                         }
                         Spacer()
                         Text("\(week.sortedSessions.count) pass")

@@ -12,35 +12,18 @@ struct AddSessionView: View {
     @State private var notes = ""
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Vad övade du på?") {
-                    TextField("Låt/stycke", text: $pieceName)
-                        .onChange(of: pieceName) { _, newValue in
-                            if let selectedSong, selectedSong.name != newValue {
-                                self.selectedSong = nil
-                            }
-                        }
-                }
-                SongSuggestionsSection(text: $pieceName, selectedSong: $selectedSong)
-                Section("Detaljer") {
-                    DatePicker("Datum", selection: $date, displayedComponents: .date)
-                    Stepper("Längd: \(durationMinutes) min", value: $durationMinutes, in: 5...240, step: 5)
-                }
-                Section("Anteckningar") {
-                    TextField("Valfritt", text: $notes, axis: .vertical)
-                        .lineLimit(3...6)
-                }
+        FormSheet(title: "Nytt övningspass", isSaveDisabled: pieceName.trimmed.isEmpty, onSave: save) {
+            Section("Vad övade du på?") {
+                TextField("Låt/stycke", text: $pieceName)
             }
-            .navigationTitle("Nytt övningspass")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Avbryt") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Spara") { save() }
-                        .disabled(pieceName.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
+            SongSuggestionsSection(text: $pieceName, selectedSong: $selectedSong)
+            Section("Detaljer") {
+                DatePicker("Datum", selection: $date, displayedComponents: .date)
+                Stepper("Längd: \(durationMinutes) min", value: $durationMinutes, in: 5...240, step: 5)
+            }
+            Section("Anteckningar") {
+                TextField("Valfritt", text: $notes, axis: .vertical)
+                    .lineLimit(3...6)
             }
         }
     }
@@ -48,9 +31,9 @@ struct AddSessionView: View {
     private func save() {
         let session = PracticeSession(
             date: date,
-            pieceName: pieceName.trimmingCharacters(in: .whitespaces),
+            pieceName: pieceName.trimmed,
             durationMinutes: durationMinutes,
-            notes: notes.trimmingCharacters(in: .whitespaces)
+            notes: notes.trimmed
         )
         session.song = selectedSong
         modelContext.insert(session)

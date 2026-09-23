@@ -11,7 +11,7 @@ struct SongSuggestionsSection: View {
     @Binding var selectedSong: Song?
 
     private var trimmedText: String {
-        text.trimmingCharacters(in: .whitespaces)
+        text.trimmed
     }
 
     private var matches: [Song] {
@@ -24,33 +24,46 @@ struct SongSuggestionsSection: View {
     }
 
     var body: some View {
-        if selectedSong == nil && !trimmedText.isEmpty {
-            Section("Låtar") {
-                ForEach(matches) { song in
-                    Button {
-                        select(song)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(song.name)
-                                    .foregroundStyle(.primary)
-                                if !song.genre.isEmpty {
-                                    Text(song.genre)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
+        Group {
+            if selectedSong == nil && !trimmedText.isEmpty {
+                songSuggestions
+            }
+        }
+        .onChange(of: text) { _, newValue in
+            // The picked song no longer matches what's typed — treat it as free text again
+            // so a suggestion (or "create new") reappears instead of silently keeping a stale link.
+            if let selectedSong, selectedSong.name != newValue {
+                self.selectedSong = nil
+            }
+        }
+    }
+
+    private var songSuggestions: some View {
+        Section("Låtar") {
+            ForEach(matches) { song in
+                Button {
+                    select(song)
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(song.name)
+                                .foregroundStyle(.primary)
+                            if !song.genre.isEmpty {
+                                Text(song.genre)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
                             }
-                            Spacer()
                         }
+                        Spacer()
                     }
                 }
+            }
 
-                if !hasExactMatch {
-                    Button {
-                        createAndSelect()
-                    } label: {
-                        Label("Skapa ny låt: \"\(trimmedText)\"", systemImage: "plus.circle")
-                    }
+            if !hasExactMatch {
+                Button {
+                    createAndSelect()
+                } label: {
+                    Label("Skapa ny låt: \"\(trimmedText)\"", systemImage: "plus.circle")
                 }
             }
         }

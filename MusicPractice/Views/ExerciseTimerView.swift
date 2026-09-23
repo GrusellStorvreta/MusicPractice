@@ -28,12 +28,12 @@ struct ExerciseTimerView: View {
                 Text(timeString)
                     .font(.system(size: 64, weight: .semibold, design: .rounded))
                     .monospacedDigit()
-                    .foregroundStyle(hasFinished ? Color("CompletedColor") : Color.primary)
+                    .foregroundStyle(hasFinished ? Color(.completed) : Color.primary)
 
                 if hasFinished {
                     Text("Tiden är slut! 🎉")
                         .font(.headline)
-                        .foregroundStyle(Color("CompletedColor"))
+                        .foregroundStyle(Color(.completed))
                 } else if isRunning {
                     Label("Fortsätter i bakgrunden om du byter app", systemImage: "checkmark.shield")
                         .font(.caption)
@@ -63,7 +63,7 @@ struct ExerciseTimerView: View {
                     )
                 }
                 .buttonStyle(.bordered)
-                .tint(exercise.isCompleted ? Color("CompletedColor") : Color.accentColor)
+                .tint(exercise.isCompleted ? Color(.completed) : Color.accentColor)
 
                 metronomeControl
             }
@@ -98,7 +98,7 @@ struct ExerciseTimerView: View {
 
             HStack(spacing: 20) {
                 Button {
-                    metronome.bpm = max(40, metronome.bpm - 1)
+                    metronome.bpm -= 1
                 } label: {
                     Image(systemName: "minus")
                         .frame(width: 32, height: 32)
@@ -112,7 +112,7 @@ struct ExerciseTimerView: View {
                     .frame(minWidth: 92)
 
                 Button {
-                    metronome.bpm = min(208, metronome.bpm + 1)
+                    metronome.bpm += 1
                 } label: {
                     Image(systemName: "plus")
                         .frame(width: 32, height: 32)
@@ -127,7 +127,7 @@ struct ExerciseTimerView: View {
                         .frame(width: 32, height: 32)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(metronome.isPlaying ? Color("CompletedColor") : Color.accentColor)
+                .tint(metronome.isPlaying ? Color(.completed) : Color.accentColor)
                 .clipShape(Circle())
             }
         }
@@ -136,8 +136,6 @@ struct ExerciseTimerView: View {
     }
 
     private var timeString: String {
-        let minutes = remainingSeconds / 60
-        let seconds = remainingSeconds % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        TimeFormatting.minutesAndSeconds(remainingSeconds)
     }
 }

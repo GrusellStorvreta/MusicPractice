@@ -21,7 +21,7 @@ struct WeekDetailView: View {
                         Spacer()
                         if session.isCompleted {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(Color("CompletedColor"))
+                                .foregroundStyle(Color(.completed))
                         }
                     }
                     .padding(.vertical, 4)

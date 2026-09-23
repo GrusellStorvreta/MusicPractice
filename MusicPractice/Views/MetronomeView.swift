@@ -35,7 +35,7 @@ struct MetronomeView: View {
                     .buttonStyle(.bordered)
                     .clipShape(Circle())
 
-                    Slider(value: $metronome.bpm, in: 40...208, step: 1)
+                    Slider(value: $metronome.bpm, in: MetronomeEngine.bpmRange, step: 1)
 
                     Button {
                         adjustBPM(by: 1)
@@ -77,7 +77,7 @@ struct MetronomeView: View {
     }
 
     private func adjustBPM(by delta: Double) {
-        metronome.bpm = min(208, max(40, metronome.bpm + delta))
+        metronome.bpm += delta
     }
 }
 
